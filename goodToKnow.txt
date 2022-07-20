@@ -1,0 +1,2 @@
+# Ensure that Windows Time Zone Does not go off on dual boot, no sudo privilege required
+timedatectl set-local-rtc 1
