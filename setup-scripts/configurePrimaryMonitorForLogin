@@ -1,0 +1,6 @@
+# Source: https://www.redboxconsulting.be/2021/11/17/gnome-login-screen-on-wrong-monitor/
+
+# First Configure it as required via settings
+
+sudo cp -v ~/.config/monitors.xml /var/lib/gdm/.config/
+sudo chown gdm:gdm /var/lib/gdm/.config/monitors.xml
