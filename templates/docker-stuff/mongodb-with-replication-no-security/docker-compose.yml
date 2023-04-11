@@ -1,0 +1,48 @@
+version: "3.9"
+
+services:
+
+  mongoMaster:
+    container_name: mongoMaster
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoMaster:/data/db
+    command: mongod --replSet rs0 --bind_ip_all --bind_ip localhost,mongoMaster
+  
+  mongoSlave1:
+    container_name: mongoSlave1
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27018:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoSlave1:/data/db
+    command: mongod --replSet rs0 --bind_ip_all --bind_ip localhost,mongoSlave1
+  
+  mongoSlave2:
+    container_name: mongoSlave2
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27019:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoSlave2:/data/db
+    command: mongod --replSet rs0 --bind_ip_all --bind_ip localhost,mongoSlave2
+
+networks:
+  mongo-cluster:
