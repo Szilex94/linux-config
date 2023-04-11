@@ -1,0 +1,51 @@
+version: "3.9"
+
+services:
+
+  mongoMaster:
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27017:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoMaster:/data/db
+      - ${HOME}/.development/mongoSupport/masterConf/ssl:/data/ssl
+      - ${HOME}/.development/mongoSupport/masterConf/config:/data/config
+    command: mongod --config /data/config/ssl.conf --bind_ip_all
+  
+  mongoSlave1:
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27018:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoSlave1:/data/db
+      - ${HOME}/.development/mongoSupport/slave1Conf/ssl:/data/ssl
+      - ${HOME}/.development/mongoSupport/slave1Conf/config:/data/config
+    command: mongod --config /data/config/ssl.conf --bind_ip_all
+  
+  mongoSlave2:
+    image: mongo:6.0.5
+    restart: always
+    networks:
+      - mongo-cluster
+    expose:
+      - 27017
+    ports:
+      - 27019:27017
+    volumes:
+      - ${HOME}/.development/mongoDB/mongoSlave2:/data/db
+      - ${HOME}/.development/mongoSupport/slave2Conf/ssl:/data/ssl
+      - ${HOME}/.development/mongoSupport/slave2Conf/config:/data/config
+    command: mongod --config /data/config/ssl.conf --bind_ip_all
+
+networks:
+  mongo-cluster:
