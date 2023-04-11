@@ -15,7 +15,7 @@ services:
         source: mongoData
         target: /data/db
       - type: bind
-        source: /home/szilex94/.development/mongoDB
+        source: ${HOME}/.development/mongoDB/standaloneData
         target: /data/db
 
 volumes:
